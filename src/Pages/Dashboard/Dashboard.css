@@ -1,0 +1,42 @@
+body {
+  background-color: #ebe9e9 !important;
+}
+.css-1ujsas3,
+.css-1km1ehz,
+.css-1hw9j7s {
+  font-family: "Vazirmatn", sans-serif !important;
+}
+::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--e-global-color-primary);
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+/* styles */
+.sidebar-wrapper {
+  width: 20%;
+  flex: 0 0 20%;
+  transition: all 0.3s;
+}
+.sidebar-wrapper.toggle {
+  width: 0%;
+  flex: 0 0 0%;
+}
+
+.content {
+  width: 80%;
+  flex: 0 0 80%;
+  padding: 95px 35px;
+  transition: all 0.3s;
+}
+.content.toggle {
+  width: 100%;
+  flex: 0 0 100%;
+}
+.main{
+  min-height: 100vh;
+}
