@@ -7,15 +7,21 @@ import NotFound from "./Pages/NotFound/NotFound";
 // Auth Components
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
+// protected Components
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 let routes = [
   // dashboard
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <ProtectedRoute>
+        <Dashboard />
+      </ProtectedRoute>
+    ),
     children: [
-      {path : "" , element : <Stock/>},
+      { path: "", element: <Stock /> },
       { path: "*", element: <NotFound /> },
-      {path : "stock" , element : <Stock/>},
+      { path: "stock", element: <Stock /> },
     ],
   },
   // Auth
@@ -23,9 +29,9 @@ let routes = [
     path: "/",
     element: <Auth />,
     children: [
-      {path : "" , element : <Login/>},
-      {path : "login" , element : <Login/>},
-      {path : "register" , element : <Register/>},
+      { path: "", element: <Login /> },
+      { path: "login", element: <Login /> },
+      { path: "register", element: <Register /> },
       // { path: "*", element: <NotFound /> }
     ],
   },

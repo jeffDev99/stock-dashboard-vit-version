@@ -1,7 +1,7 @@
 // libraries
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
 // custom Componnets
