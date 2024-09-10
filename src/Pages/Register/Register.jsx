@@ -16,9 +16,9 @@ import styles from "./Register.module.css";
 export default function Register() {
   const { registerWrapper } = styles;
   const initialValues = { firstName: "", lastName: "", userName: "", password: "", email: "" };
-  const navigate = useNavigate()
-  const [loading , setLoading] = useState()
-  
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState();
+
   const validationSchema = Yup.object({
     firstName: Yup.string().required("نام الزامی است"),
     lastName: Yup.string().required("نام خانوادگی الزامی است"),
@@ -33,17 +33,17 @@ export default function Register() {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={({firstName ,lastName,userName,password,email }) => {
+        onSubmit={(values, { resetForm }) => {
           const newUserObj = {
-            firstName,
-            lastName,
-            userName,
-            password,
-            email,
+            firstName: values.firstName,
+            lastName: values.lastName,
+            userName: values.userName,
+            password: values.password,
+            email: values.email,
           };
-          const fetchData = (async () => {
+          (async () => {
             try {
-              setLoading(true)
+              setLoading(true);
               const response = await fetch("https://fani.khz-fanoos.ir/api/Auth/register", {
                 method: "POST",
                 headers: {
@@ -52,15 +52,15 @@ export default function Register() {
                 },
                 body: JSON.stringify(newUserObj),
               });
-              if (!response.ok) {
-                throw new Error("Something went wrong!");
-              }
               const data = await response.text();
               if (data === "username alrdy exists") {
                 Swal.fire({
                   title: "نام کاربری تکراری",
-                  text : "این یوزر نیم تکراری میباشد لطفا برای ثبت نام از نام کاربری دیگری استفاده کنید",
+                  text: "این یوزر نیم تکراری میباشد لطفا برای ثبت نام از نام کاربری دیگری استفاده کنید",
                   icon: "error",
+                }).then((res) => {
+                  resetForm();
+                  throw new Error(data);
                 });
               } else if (data === "user created successfully") {
                 Swal.fire({
@@ -68,8 +68,8 @@ export default function Register() {
                   text: "لطفا جهت هدایت به صفحه ورود روی دکمه زیر کلیک کنید",
                   confirmButtonText: "صفحه ورود",
                   icon: "success",
-                }).then(res=>{
-                  navigate("/")
+                }).then((res) => {
+                  navigate("/");
                 });
               } else {
                 Swal.fire({
@@ -80,9 +80,8 @@ export default function Register() {
               console.log(data);
             } catch (error) {
               console.error(error);
-            }
-            finally{
-              setLoading(false)
+            } finally {
+              setLoading(false);
             }
           })();
         }}
