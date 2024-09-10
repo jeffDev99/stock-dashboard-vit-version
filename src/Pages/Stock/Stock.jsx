@@ -12,7 +12,6 @@ import { FaEye } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 
-import { stocks } from "../../datas";
 import Swal from "sweetalert2";
 import "./Stock.css";
 
@@ -24,17 +23,19 @@ export default function Stock() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch("https://fani.khz-fanoos.ir/api/Stock");
-      const responseText = await response.text();
-      const data = JSON.parse(responseText);
-      console.log(data);
-      setStock(stocks);
+      try {
+        const response = await fetch("https://fani.khz-fanoos.ir/api/Stock/get-stocks");
+        const data = await response.json();
+        setStock(data);
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     fetchData();
-  }, []); // وابستگی‌ها
+  }, []);
   const showHandler = (stockId) => {
-    const findedStock = stocks.find((stock) => stock.id === stockId);
+    const findedStock = stock.find((stock) => stock.id === stockId);
     if (findedStock.goods.length) {
       Swal.fire({
         title: "The Internet?",
